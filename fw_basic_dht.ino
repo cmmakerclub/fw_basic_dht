@@ -17,11 +17,11 @@
 MqttConnector *mqtt;
 CMMC_Blink *blinker;
 
-#define LED 16
+#define LED 2
 
 /* WIFI INFO */
-String WIFI_SSID        = "@ESPertAP_001";
-String WIFI_PASSWORD    = "espertap";
+String WIFI_SSID        = "NAT-4G";
+String WIFI_PASSWORD    = "natnatnat";
 
 String MQTT_HOST        = "mqtt.cmmc.io";
 String MQTT_USERNAME    = "";
@@ -31,24 +31,26 @@ String MQTT_PREFIX      = "MARU/";
 int    MQTT_PORT        = 1883;
 int PUBLISH_EVERY       = 5000;
 String IFTTT_STRING     = "http://cmmc.io/";
-
-String DEVICE_NAME      = "DEPA-005";
-int relayPin            = 15;
+String DEVICE_NAME       = "DEPA-005";
 int MQTT_CONNECT_TIMEOUT = 5000;
-char myName[40];
-int relayPinState;
 
+char myName[40];
+int relayPin      = 15;
+int relayPinState = 0;
+
+#define DHT_VCC 14
+#define DHT_GND 15
 void init_hardware()
 {
   blinker = new CMMC_Blink();
   blinker->init();
   pinMode(12, INPUT_PULLUP);
 
-  pinMode(14, OUTPUT);
-  pinMode(15, OUTPUT);
+  pinMode(DHT_VCC, OUTPUT);
+  pinMode(DHT_GND, OUTPUT);
 
-  digitalWrite(14, HIGH);
-  digitalWrite(15, LOW);
+  digitalWrite(DHT_VCC, HIGH);
+  digitalWrite(DHT_GND, LOW);
 
   pinMode(relayPin, OUTPUT);
   pinMode(LED_BUILTIN, OUTPUT);
